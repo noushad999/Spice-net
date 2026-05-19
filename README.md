@@ -37,27 +37,27 @@ University of Asia Pacific
 Three-branch multi-modal fusion network:
 
 ```
-Input Image (224×224×3)
-        │
-        ├── EfficientNet-B4 ──────────────────── 1792-d
-        │   (ImageNet pretrained, Global Avg Pool)
-        │
-        ├── Texture Branch ──────────────────── 256-d
-        │   LBP (10-d) + GLCM (48-d) = 58-d
-        │   → MLP (58→128→256) + BN + ReLU
-        │
-        └── Color Branch ───────────────────── 128-d
+Input Image (224x224x3)
+        |
+        |-- EfficientNet-B4 ──────────────────── 1792-d
+        |   (ImageNet pretrained, Global Avg Pool)
+        |
+        |-- Texture Branch ──────────────────── 256-d
+        |   LBP (10-d) + GLCM (48-d) = 58-d
+        |   MLP (58->128->256) + BN + ReLU
+        |
+        └-- Color Branch ───────────────────── 128-d
             HSV Histogram (H:36+S:32+V:32) = 100-d
-            → MLP (100→64→128) + BN + ReLU
-                        │
+            MLP (100->64->128) + BN + ReLU
+                        |
                 AttentionFusion
             (softmax-gated: a_img + a_tex + a_col = 1)
-                        │
+                        |
                    2176-d fused
-                        │
+                        |
                   fusion_head
-              MLP(2176→512→11)
-                        │
+              MLP(2176->512->11)
+                        |
               11-class prediction
 ```
 
@@ -71,7 +71,7 @@ Input Image (224×224×3)
 |---|---|---|---|
 | Phase 1 — Backbone Pretraining | 30 | CE + Label Smoothing | EfficientNet-B4 + img_head |
 | Phase 2 — Contrastive Fine-tuning | 10 | SupCon Loss | Backbone + proj_head |
-| Phase 3 — Full Fusion | 10 | 0.5×CE + 0.5×SupCon | All branches |
+| Phase 3 — Full Fusion | 10 | 0.5 x CE + 0.5 x SupCon | All branches |
 
 ---
 
@@ -94,7 +94,7 @@ pip install -r requirements.txt
 # Download SAM weights (optional, for ablation A5)
 python download_sam.py
 
-# Train — all 3 phases
+# Train all 3 phases
 python train.py
 
 # Evaluate on test set
@@ -120,8 +120,8 @@ SpiceNet/
 ├── train.py                   # 3-phase training entry point
 ├── evaluate.py                # Test evaluation + Grad-CAM
 ├── predict.py                 # Single image inference
-├── run_baselines.py           # B1–B4 baseline comparison
-├── run_ablations.py           # A1–A5 ablation studies
+├── run_baselines.py           # B1-B4 baseline comparison
+├── run_ablations.py           # A1-A5 ablation studies
 ├── run_svm.py                 # SVM classical baseline
 ├── sam_preprocess.py          # MobileSAM background removal
 ├── batch_test.py              # Bulk folder inference
@@ -137,8 +137,8 @@ SpiceNet/
 │   ├── baselines.py           # ResNet/ViT/EffNet/SVM
 │   ├── gradcam.py             # Grad-CAM visualization
 │   └── utils.py               # Metrics, plots, checkpoints
-├── documentation/             # Full code documentation
-├── spice_speech/              # Presentation speech scripts
+├── documentation/             # Full code documentation (19 files)
+├── spice_speech/              # Presentation speech (18 slides)
 └── outputs/                   # Training curves, confusion matrices
 ```
 
@@ -149,7 +149,7 @@ SpiceNet/
 - **Why EfficientNet-B4?** Best accuracy-speed tradeoff across 5 tested backbones (Ablation A4)
 - **Why multi-modal?** Each branch captures what others miss — confirmed by Ablation A1
 - **Why SupCon in Phase 2?** Critical for hard-negative pairs (Ablation A2) — 1%+ accuracy gain
-- **Why spice-specific augmentation?** 93% → 99.68% improvement (Ablation A3)
+- **Why spice-specific augmentation?** 93% to 99.68% improvement (Ablation A3)
 - **Why not SAM background removal?** Grad-CAM shows model already focuses on spice (Ablation A5)
 
 ---
