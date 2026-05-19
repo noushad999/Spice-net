@@ -1,0 +1,45 @@
+# Model weights (too large for GitHub)
+*.pth
+*.pkl
+*.pt
+mobile_sam.pt
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Outputs (generated files)
+outputs/checkpoints/
+outputs/*.png
+outputs/*.json
+
+# Dataset (too large)
+Spice_Spectrum/
+Spice_Spectrum_SAM/
+
+# Test folder
+test/
+
+# Virtual env
+venv/
+.env
+env/
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# WhatsApp / ChatGPT images (personal)
+WhatsApp Image*.jpeg
+WhatsApp Image*.jpg
+ChatGPT Image*.png
