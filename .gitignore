@@ -43,3 +43,10 @@ Thumbs.db
 WhatsApp Image*.jpeg
 WhatsApp Image*.jpg
 ChatGPT Image*.png
+
+# Group-project PII artifacts (classmates names/IDs) — removed from public repo
+Automotive.pdf
+Automotive.pptx
+outputs/architecture_diagram.pptx
+team_contributions.pdf
+spice_speech/
